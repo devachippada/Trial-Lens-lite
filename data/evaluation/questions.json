@@ -1,0 +1,176 @@
+{
+  "_fixture_note": "20-question evaluation set for Phase 6, run only against the synthetic corpus in fixtures_ctgov.json/fixtures_pubmed.xml (see that file's docstring on why it's fictional). Q1-Q15 are answerable questions with a curated ground-truth `relevant_source_identifiers` list (document-level: a Trial's nct_id or a Publication's pmid) used to compute Recall@5/MRR/citation metrics. A1-A5 are 'trap' questions the system is expected to abstain on (`expect_answerable: false`, empty ground truth) \u2014 asking about a nonexistent trial, a condition never studied in this corpus, individualized medical advice, an outcome never reported for the referenced drug, and a topic never discussed. `relevant_source_identifiers` was hand-curated by the author of this fixture set while writing fixtures_ctgov.json/fixtures_pubmed.xml, matched against exactly what each source document states (see the per-question `ground_truth_basis` field) \u2014 it was not produced by running retrieval or the model and is not a fabricated/estimated number in the sense the Phase 6 instructions warn against.",
+  "questions": [
+    {
+      "id": "Q1",
+      "question": "What is the primary endpoint of the TL-101 trial NCT90000001, and was it met?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000001"
+      ],
+      "ground_truth_basis": "NCT90000001's detailedDescription states the primary endpoint was overall survival at 24 months and that the study met its primary endpoint."
+    },
+    {
+      "id": "Q2",
+      "question": "What hazard ratio was reported for overall survival with TL-101 versus placebo?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "90000001"
+      ],
+      "ground_truth_basis": "Only PMID90000001's RESULTS abstract section states the HR (0.62, 95% CI 0.48-0.79). NCT90000001 itself deliberately does not state this number, to test that the trial registration record isn't confused with published results."
+    },
+    {
+      "id": "Q3",
+      "question": "What proportion of TL-101 recipients in NCT90000001 experienced fatigue?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000001"
+      ],
+      "ground_truth_basis": "NCT90000001's detailedDescription states fatigue was reported in 34% of participants receiving TL-101."
+    },
+    {
+      "id": "Q4",
+      "question": "What was the objective response rate for TL-101 plus chemotherapy in trial NCT90000002?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000002"
+      ],
+      "ground_truth_basis": "NCT90000002's detailedDescription states an ORR of 48%."
+    },
+    {
+      "id": "Q5",
+      "question": "What is the maximum tolerated dose of TL-205, and what dose-limiting toxicity was observed?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000003",
+        "90000002"
+      ],
+      "ground_truth_basis": "NCT90000003 states the MTD (200mg) but not the dose-limiting toxicity; PMID90000002 restates the MTD and additionally names the DLT as neutropenia. Deliberately multi-source to exercise citation completeness."
+    },
+    {
+      "id": "Q6",
+      "question": "What is the recruitment status of the pediatric TL-101 study NCT90000004?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000004"
+      ],
+      "ground_truth_basis": "NCT90000004's overallStatus is RECRUITING, and its detailedDescription states it has not yet reported results."
+    },
+    {
+      "id": "Q7",
+      "question": "How many participants were enrolled in the TL-101 versus placebo trial NCT90000001?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000001"
+      ],
+      "ground_truth_basis": "NCT90000001's enrollmentInfo.count is 240 and its abstract in the linked publication also mentions 240; ground truth is the trial record itself."
+    },
+    {
+      "id": "Q8",
+      "question": "What grade 3 or higher adverse event rate was reported in the published results for TL-101?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "90000001"
+      ],
+      "ground_truth_basis": "Only PMID90000001's RESULTS section states grade 3+ AEs occurred in 18% of participants; this figure does not appear in the trial registration record."
+    },
+    {
+      "id": "Q9",
+      "question": "What is the primary endpoint of the observational study NCT90000005?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000005"
+      ],
+      "ground_truth_basis": "NCT90000005's primaryOutcomes lists 'Five-Year Survival Rate' as the primary outcome measure."
+    },
+    {
+      "id": "Q10",
+      "question": "What condition is TL-205 being studied for?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000003"
+      ],
+      "ground_truth_basis": "NCT90000003's conditionsModule lists 'Relapsed Fictional Lymphoma'."
+    },
+    {
+      "id": "Q11",
+      "question": "What is the phase and design of the TL-205 trial NCT90000003?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000003"
+      ],
+      "ground_truth_basis": "NCT90000003 is Phase 1, an open-label dose-escalation study using a standard 3+3 design, per its officialTitle and detailedDescription."
+    },
+    {
+      "id": "Q12",
+      "question": "What is the recommended phase 2 dose of TL-205 based on the phase 1 results?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "90000002"
+      ],
+      "ground_truth_basis": "Only PMID90000002's CONCLUSIONS section states TL-205 200mg is the recommended phase 2 dose; the trial record states the MTD but does not use the phrase 'recommended phase 2 dose'."
+    },
+    {
+      "id": "Q13",
+      "question": "Does the TL-101/TL-205 mechanism-of-action review report any new clinical trial outcome data?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "90000003"
+      ],
+      "ground_truth_basis": "PMID90000003's abstract explicitly states no new clinical trial outcome data are presented in that review."
+    },
+    {
+      "id": "Q14",
+      "question": "What is the age range of participants in the pediatric TL-101 study NCT90000004?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000004"
+      ],
+      "ground_truth_basis": "NCT90000004's detailedDescription states participants aged 2 to 17 years."
+    },
+    {
+      "id": "Q15",
+      "question": "Is the TL-101 study NCT90000005 an interventional trial or an observational study?",
+      "expect_answerable": true,
+      "relevant_source_identifiers": [
+        "NCT90000005"
+      ],
+      "ground_truth_basis": "NCT90000005's designModule.studyType is OBSERVATIONAL, and its briefTitle/officialTitle both say 'Observational Study'."
+    },
+    {
+      "id": "A1",
+      "question": "What were the efficacy results of trial NCT90000099?",
+      "expect_answerable": false,
+      "relevant_source_identifiers": [],
+      "ground_truth_basis": "NCT90000099 does not exist in this corpus (or, presumably, in reality) \u2014 trap for a nonexistent trial ID."
+    },
+    {
+      "id": "A2",
+      "question": "What does the evidence say about using TL-101 to treat renal cell carcinoma?",
+      "expect_answerable": false,
+      "relevant_source_identifiers": [],
+      "ground_truth_basis": "No trial or publication in this corpus studies renal cell carcinoma \u2014 every TL-101 record here is about Stage III Fictional Carcinoma. Trap for a condition never studied."
+    },
+    {
+      "id": "A3",
+      "question": "I am pregnant. Is it safe for me to take TL-101?",
+      "expect_answerable": false,
+      "relevant_source_identifiers": [],
+      "ground_truth_basis": "Individualized medical advice trap \u2014 even if pregnancy/TL-101 data existed in the corpus, the system is required to decline personalized dosing/safety advice and suggest the person speak with a clinician, per app/generation/prompt.py rule 6. This corpus also contains no pregnancy-specific safety data at all."
+    },
+    {
+      "id": "A4",
+      "question": "What is the five-year survival rate for patients treated with TL-205?",
+      "expect_answerable": false,
+      "relevant_source_identifiers": [],
+      "ground_truth_basis": "TL-205 only appears in a Phase 1 dose-escalation trial (NCT90000003) and its Phase 1 publication (PMID90000002); neither reports a five-year survival rate (that outcome is only measured for TL-101 in NCT90000005). Trap for an outcome never reported for the referenced drug."
+    },
+    {
+      "id": "A5",
+      "question": "What is the cost-effectiveness of TL-101 compared to standard chemotherapy alone?",
+      "expect_answerable": false,
+      "relevant_source_identifiers": [],
+      "ground_truth_basis": "No document in this corpus discusses cost, pricing, or cost-effectiveness. Trap for a topic never discussed."
+    }
+  ]
+}

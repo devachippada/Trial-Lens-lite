@@ -1,0 +1,240 @@
+{
+  "_fixture_note": "Synthetic ClinicalTrials.gov API v2 studies, shaped exactly like real API v2 `study` objects (see backend/app/ingestion/normalize.py's normalize_trial and tests/fixtures/ctgov_study_sample.json), authored for Phase 6 evaluation only. All five NCT ids (NCT9000000{1..5}) are placeholders in an unused ID range, not real trials. The drugs 'TL-101'/'TL-205' and conditions 'Stage III Fictional Carcinoma'/'Relapsed Fictional Lymphoma' are entirely fictional so this corpus can carry ground-truth facts (used to compute real Recall@5/MRR/citation metrics) without representing any real clinical result. Each trial's brief_summary + detailed_description is kept under ~500 characters so it chunks into exactly one Chunk row (chunk_size=1000 in app/retrieval/config.py) — that keeps 'the right answer is in document X' unambiguous for evaluation, rather than depending on which half of a longer document got chunked where.",
+  "studies": [
+    {
+      "protocolSection": {
+        "identificationModule": {
+          "nctId": "NCT90000001",
+          "briefTitle": "A Study of TL-101 in Adults With Stage III Fictional Carcinoma",
+          "officialTitle": "A Phase 3, Randomized, Double-Blind, Placebo-Controlled Study of TL-101 in Adults With Stage III Fictional Carcinoma"
+        },
+        "statusModule": {
+          "overallStatus": "COMPLETED",
+          "startDateStruct": {"date": "2019-04", "type": "ACTUAL"},
+          "primaryCompletionDateStruct": {"date": "2022-05-01", "type": "ACTUAL"},
+          "completionDateStruct": {"date": "2022-08", "type": "ACTUAL"},
+          "lastUpdatePostDateStruct": {"date": "2022-11-01", "type": "ACTUAL"}
+        },
+        "designModule": {
+          "studyType": "INTERVENTIONAL",
+          "phases": ["PHASE3"],
+          "enrollmentInfo": {"count": 240, "type": "ACTUAL"}
+        },
+        "conditionsModule": {
+          "conditions": ["Stage III Fictional Carcinoma"]
+        },
+        "armsInterventionsModule": {
+          "interventions": [
+            {"type": "DRUG", "name": "TL-101"},
+            {"type": "OTHER", "name": "Placebo"}
+          ]
+        },
+        "sponsorCollaboratorsModule": {
+          "leadSponsor": {"name": "Fictional Biotherapeutics, Inc.", "class": "INDUSTRY"}
+        },
+        "descriptionModule": {
+          "briefSummary": "This study evaluates whether TL-101 improves overall survival compared to placebo in adults with Stage III Fictional Carcinoma.",
+          "detailedDescription": "Participants were randomized 1:1 to receive TL-101 or matching placebo. The primary endpoint was overall survival at 24 months, and the study met its primary endpoint. The most common adverse event was fatigue, reported in 34% of participants receiving TL-101."
+        },
+        "outcomesModule": {
+          "primaryOutcomes": [
+            {
+              "measure": "Overall Survival at 24 Months",
+              "description": "Time from randomization to death from any cause, assessed at 24 months.",
+              "timeFrame": "24 months"
+            }
+          ],
+          "secondaryOutcomes": [
+            {
+              "measure": "Progression-Free Survival",
+              "description": "Time from randomization to disease progression or death.",
+              "timeFrame": "24 months"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "protocolSection": {
+        "identificationModule": {
+          "nctId": "NCT90000002",
+          "briefTitle": "A Study of TL-101 Plus Chemotherapy in Adults With Stage III Fictional Carcinoma",
+          "officialTitle": "A Phase 2, Single-Arm Study of TL-101 in Combination With Chemotherapy in Adults With Stage III Fictional Carcinoma"
+        },
+        "statusModule": {
+          "overallStatus": "COMPLETED",
+          "startDateStruct": {"date": "2018-01", "type": "ACTUAL"},
+          "primaryCompletionDateStruct": {"date": "2019-12-01", "type": "ACTUAL"},
+          "completionDateStruct": {"date": "2020-03", "type": "ACTUAL"},
+          "lastUpdatePostDateStruct": {"date": "2020-06-01", "type": "ACTUAL"}
+        },
+        "designModule": {
+          "studyType": "INTERVENTIONAL",
+          "phases": ["PHASE2"],
+          "enrollmentInfo": {"count": 60, "type": "ACTUAL"}
+        },
+        "conditionsModule": {
+          "conditions": ["Stage III Fictional Carcinoma"]
+        },
+        "armsInterventionsModule": {
+          "interventions": [
+            {"type": "DRUG", "name": "TL-101"},
+            {"type": "DRUG", "name": "Standard Chemotherapy"}
+          ]
+        },
+        "sponsorCollaboratorsModule": {
+          "leadSponsor": {"name": "Fictional Biotherapeutics, Inc.", "class": "INDUSTRY"}
+        },
+        "descriptionModule": {
+          "briefSummary": "This single-arm study evaluates the objective response rate of TL-101 combined with standard chemotherapy in adults with Stage III Fictional Carcinoma.",
+          "detailedDescription": "All participants received TL-101 in combination with standard chemotherapy. The objective response rate (ORR) was 48%, assessed by independent radiologic review."
+        },
+        "outcomesModule": {
+          "primaryOutcomes": [
+            {
+              "measure": "Objective Response Rate",
+              "description": "Proportion of participants achieving a complete or partial response by independent radiologic review.",
+              "timeFrame": "12 months"
+            }
+          ],
+          "secondaryOutcomes": []
+        }
+      }
+    },
+    {
+      "protocolSection": {
+        "identificationModule": {
+          "nctId": "NCT90000003",
+          "briefTitle": "A Dose-Escalation Study of TL-205 in Adults With Relapsed Fictional Lymphoma",
+          "officialTitle": "A Phase 1, Open-Label, Dose-Escalation Study of TL-205 in Adults With Relapsed Fictional Lymphoma"
+        },
+        "statusModule": {
+          "overallStatus": "COMPLETED",
+          "startDateStruct": {"date": "2017-06", "type": "ACTUAL"},
+          "primaryCompletionDateStruct": {"date": "2019-02-01", "type": "ACTUAL"},
+          "completionDateStruct": {"date": "2019-05", "type": "ACTUAL"},
+          "lastUpdatePostDateStruct": {"date": "2019-09-01", "type": "ACTUAL"}
+        },
+        "designModule": {
+          "studyType": "INTERVENTIONAL",
+          "phases": ["PHASE1"],
+          "enrollmentInfo": {"count": 30, "type": "ACTUAL"}
+        },
+        "conditionsModule": {
+          "conditions": ["Relapsed Fictional Lymphoma"]
+        },
+        "armsInterventionsModule": {
+          "interventions": [
+            {"type": "DRUG", "name": "TL-205"}
+          ]
+        },
+        "sponsorCollaboratorsModule": {
+          "leadSponsor": {"name": "Fictional Biotherapeutics, Inc.", "class": "INDUSTRY"}
+        },
+        "descriptionModule": {
+          "briefSummary": "This dose-escalation study determines the maximum tolerated dose of TL-205 in adults with relapsed fictional lymphoma.",
+          "detailedDescription": "Participants received escalating doses of TL-205 in a standard 3+3 design. The maximum tolerated dose (MTD) was determined to be 200mg."
+        },
+        "outcomesModule": {
+          "primaryOutcomes": [
+            {
+              "measure": "Maximum Tolerated Dose",
+              "description": "Highest dose at which no more than 1 of 6 participants experiences a dose-limiting toxicity.",
+              "timeFrame": "28 days"
+            }
+          ],
+          "secondaryOutcomes": []
+        }
+      }
+    },
+    {
+      "protocolSection": {
+        "identificationModule": {
+          "nctId": "NCT90000004",
+          "briefTitle": "A Study of TL-101 in Children With Stage III Fictional Carcinoma",
+          "officialTitle": "A Phase 2, Open-Label Study of TL-101 in Pediatric Patients With Stage III Fictional Carcinoma"
+        },
+        "statusModule": {
+          "overallStatus": "RECRUITING",
+          "startDateStruct": {"date": "2023-02", "type": "ACTUAL"},
+          "lastUpdatePostDateStruct": {"date": "2024-03-01", "type": "ACTUAL"}
+        },
+        "designModule": {
+          "studyType": "INTERVENTIONAL",
+          "phases": ["PHASE2"],
+          "enrollmentInfo": {"count": 80, "type": "ESTIMATED"}
+        },
+        "conditionsModule": {
+          "conditions": ["Stage III Fictional Carcinoma"]
+        },
+        "armsInterventionsModule": {
+          "interventions": [
+            {"type": "DRUG", "name": "TL-101"}
+          ]
+        },
+        "sponsorCollaboratorsModule": {
+          "leadSponsor": {"name": "Fictional Biotherapeutics, Inc.", "class": "INDUSTRY"}
+        },
+        "descriptionModule": {
+          "briefSummary": "This study evaluates the safety and pharmacokinetics of TL-101 in pediatric patients with Stage III Fictional Carcinoma.",
+          "detailedDescription": "Participants aged 2 to 17 years receive TL-101 at a weight-based dose. This study is currently recruiting and has not yet reported results."
+        },
+        "outcomesModule": {
+          "primaryOutcomes": [
+            {
+              "measure": "Incidence of Treatment-Emergent Adverse Events",
+              "description": "Safety and tolerability of TL-101 in pediatric participants.",
+              "timeFrame": "12 months"
+            }
+          ],
+          "secondaryOutcomes": []
+        }
+      }
+    },
+    {
+      "protocolSection": {
+        "identificationModule": {
+          "nctId": "NCT90000005",
+          "briefTitle": "An Observational Study of Long-Term Outcomes in Adults With Stage III Fictional Carcinoma Treated With TL-101",
+          "officialTitle": "A Phase 4, Observational, Post-Marketing Study of Long-Term Outcomes in Adults With Stage III Fictional Carcinoma Treated With TL-101"
+        },
+        "statusModule": {
+          "overallStatus": "ACTIVE_NOT_RECRUITING",
+          "startDateStruct": {"date": "2021-01", "type": "ACTUAL"},
+          "primaryCompletionDateStruct": {"date": "2026-06", "type": "ESTIMATED"},
+          "lastUpdatePostDateStruct": {"date": "2024-01-15", "type": "ACTUAL"}
+        },
+        "designModule": {
+          "studyType": "OBSERVATIONAL",
+          "phases": ["PHASE4"],
+          "enrollmentInfo": {"count": 500, "type": "ACTUAL"}
+        },
+        "conditionsModule": {
+          "conditions": ["Stage III Fictional Carcinoma"]
+        },
+        "armsInterventionsModule": {
+          "interventions": [
+            {"type": "DRUG", "name": "TL-101"}
+          ]
+        },
+        "sponsorCollaboratorsModule": {
+          "leadSponsor": {"name": "Fictional Biotherapeutics, Inc.", "class": "INDUSTRY"}
+        },
+        "descriptionModule": {
+          "briefSummary": "This observational study evaluates five-year survival rates in adults with Stage III Fictional Carcinoma treated with TL-101 in real-world clinical practice.",
+          "detailedDescription": "Participants who received TL-101 as part of routine clinical care are followed for five years. The primary endpoint is the five-year survival rate."
+        },
+        "outcomesModule": {
+          "primaryOutcomes": [
+            {
+              "measure": "Five-Year Survival Rate",
+              "description": "Proportion of participants alive five years after starting TL-101.",
+              "timeFrame": "5 years"
+            }
+          ],
+          "secondaryOutcomes": []
+        }
+      }
+    }
+  ]
+}

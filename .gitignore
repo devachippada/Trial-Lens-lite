@@ -1,0 +1,27 @@
+# --- Python ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+backend/.venv/
+.venv/
+
+# --- Node / Next.js ------------------------------------------------------
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+npm-debug.log*
+
+# --- Env / secrets ---------------------------------------------------------
+.env
+.env.*.local
+
+# --- Editor / OS -----------------------------------------------------------
+.DS_Store
+.vscode/
+.idea/
+
+# --- Docker ------------------------------------------------------------
+*.pid

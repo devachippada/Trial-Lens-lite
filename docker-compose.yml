@@ -1,0 +1,67 @@
+name: trial-lens-lite
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-triallens}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-triallens}
+      POSTGRES_DB: ${POSTGRES_DB:-triallens}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - trial-lens-lite-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-triallens} -d ${POSTGRES_DB:-triallens}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://triallens:triallens@db:5432/triallens}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - ./data:/data
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - trial-lens-lite-frontend-node-modules:/app/node_modules
+      - trial-lens-lite-frontend-next-cache:/app/.next
+
+volumes:
+  trial-lens-lite-db-data:
+  trial-lens-lite-frontend-node-modules:
+  trial-lens-lite-frontend-next-cache:
+

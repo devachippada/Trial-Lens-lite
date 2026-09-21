@@ -1,0 +1,23 @@
+Seeded 8 document/chunk rows into triallens_eval_check: ['90000001', '90000002', '90000003', 'NCT90000001', 'NCT90000002', 'NCT90000003', 'NCT90000004', 'NCT90000005']
+
+ID   Recall@5  RR      retrieved -> relevant
+Q1   0.00      0.00   [] -> ['NCT90000001']
+Q2   0.00      0.00   [] -> ['90000001']
+Q3   0.00      0.00   [] -> ['NCT90000001']
+Q4   0.00      0.00   [] -> ['NCT90000002']
+Q5   0.00      0.00   [] -> ['90000002', 'NCT90000003']
+Q6   0.00      0.00   [] -> ['NCT90000004']
+Q7   0.00      0.00   [] -> ['NCT90000001']
+Q8   0.00      0.00   [] -> ['90000001']
+Q9   0.00      0.00   [] -> ['NCT90000005']
+Q10  0.00      0.00   [] -> ['NCT90000003']
+Q11  0.00      0.00   [] -> ['NCT90000003']
+Q12  0.00      0.00   [] -> ['90000002']
+Q13  0.00      0.00   [] -> ['90000003']
+Q14  0.00      0.00   [] -> ['NCT90000004']
+Q15  0.00      0.00   [] -> ['NCT90000005']
+
+Mean Recall@5 (fulltext-only, real Postgres, n=15): 0.0000
+MRR (fulltext-only, real Postgres, n=15): 0.0000
+
+Dropped disposable database triallens_eval_check.

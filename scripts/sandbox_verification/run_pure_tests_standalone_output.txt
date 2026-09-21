@@ -1,0 +1,37 @@
+=== tests.test_evaluation_metrics ===
+  33 passed, 0 failed, 0 skipped
+=== tests.test_evaluation_dataset ===
+  13 passed, 0 failed, 0 skipped
+=== tests.test_prompt_injection ===
+  7 passed, 0 failed, 0 skipped
+=== tests.test_prompt ===
+  12 passed, 0 failed, 0 skipped
+=== tests.test_citations ===
+  12 passed, 0 failed, 0 skipped
+=== tests.test_validation ===
+  11 passed, 0 failed, 0 skipped
+=== tests.test_answer_generation ===
+  7 passed, 0 failed, 0 skipped
+=== tests.test_comparison ===
+  8 passed, 0 failed, 0 skipped
+=== tests.test_fusion ===
+  10 passed, 0 failed, 0 skipped
+=== tests.test_chunking ===
+  13 passed, 0 failed, 0 skipped
+=== tests.test_dedup ===
+  7 passed, 0 failed, 0 skipped
+=== tests.test_normalize ===
+  24 passed, 0 failed, 0 skipped
+=== tests.test_claude_client ===
+  6 passed, 0 failed, 1 skipped
+=== tests.test_clinicaltrials_client ===
+  4 passed, 0 failed, 0 skipped
+=== tests.test_pubmed_client ===
+  6 passed, 0 failed, 0 skipped
+=== tests.test_embeddings ===
+  16 passed, 0 failed, 0 skipped
+
+TOTAL: 189 passed, 0 failed, 1 skipped
+
+=== SKIPPED (matches real pytest.importorskip/pytest.skip semantics) ===
+--- tests.test_claude_client::TestGetClaudeClientFactoryWithRealSdk.test_constructs_an_anthropic_backed_client --- could not import 'anthropic'
