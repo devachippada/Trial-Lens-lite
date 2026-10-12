@@ -9,6 +9,7 @@ app/ingestion/ and app/retrieval/index_documents.py).
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.admin import router as admin_router
 from app.api.health import router as health_router
 from app.api.qa import router as qa_router
 from app.api.retrieval import router as retrieval_router
@@ -40,6 +41,7 @@ def create_app() -> FastAPI:
     # orchestrators and load balancers can probe them without knowing about
     # API versioning.
     app.include_router(health_router)
+    app.include_router(admin_router)
     app.include_router(retrieval_router, prefix=settings.api_v1_prefix)
     app.include_router(qa_router, prefix=settings.api_v1_prefix)
 

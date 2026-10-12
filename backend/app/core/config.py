@@ -72,6 +72,14 @@ class Settings(BaseSettings):
     anthropic_api_key: str | None = None
     anthropic_model: str = "claude-sonnet-4-5"
 
+    # --- Admin (one-time deployment operations) -----------------------------
+    # Gates POST /admin/migrate (runs `alembic upgrade head` against
+    # `database_url`). Unset by default, which makes the endpoint always
+    # reject - it only becomes reachable once an operator deliberately sets
+    # this env var on the deployment. Meant to be unset again after the
+    # one-time migration a fresh managed-Postgres deployment needs.
+    admin_token: str | None = None
+
     # --- Ingestion sources (Phase 2) ----------------------------------------
     ctgov_base_url: str = "https://clinicaltrials.gov/api/v2"
     pubmed_base_url: str = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
