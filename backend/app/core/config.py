@@ -8,6 +8,7 @@ codebase as ``os.environ`` lookups.
 
 from functools import lru_cache
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -46,6 +47,26 @@ class Settings(BaseSettings):
     database_url: str = (
         "postgresql+psycopg://triallens:triallens@localhost:5432/triallens"
     )
+
+    @field_validator("database_url")
+    @classmethod
+    def _normalize_database_url(cls, value: str) -> str:
+        """Accept a managed Postgres provider's connection string as-is.
+
+        Hosted Postgres providers (Neon, Vercel Postgres, etc.) hand out
+        plain ``postgres://`` / ``postgresql://`` URLs, since that's the
+        libpq-standard scheme every client understands. SQLAlchemy needs
+        the driver named explicitly (``postgresql+psycopg://``) to pick
+        the psycopg3 dialect this project depends on instead of
+        defaulting to psycopg2 (not installed - see requirements.txt).
+        Rather than asking whoever configures a deployment to hand-edit
+        the scheme on every connection string, normalize it once here.
+        """
+        if value.startswith("postgres://"):
+            return "postgresql+psycopg://" + value[len("postgres://"):]
+        if value.startswith("postgresql://"):
+            return "postgresql+psycopg://" + value[len("postgresql://"):]
+        return value
 
     # --- Anthropic (used by app/generation/, Phase 4) -----------------------
     anthropic_api_key: str | None = None
