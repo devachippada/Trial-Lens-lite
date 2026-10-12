@@ -14,6 +14,7 @@ from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.core.config import get_settings
 from app.db.session import get_db
 
 logger = logging.getLogger(__name__)
@@ -22,10 +23,21 @@ router = APIRouter(tags=["health"])
 
 
 @router.get("/health")
-def health() -> dict[str, str]:
-    """Basic liveness check. Always returns 200 if the process is running."""
+def health() -> dict[str, object]:
+    """Basic liveness check. Always returns 200 if the process is running.
 
-    return {"status": "ok"}
+    Also echoes a couple of non-secret config values (CORS origins, app
+    env) - temporary, for diagnosing a live CORS mismatch; safe to leave
+    since none of this is sensitive, but slated for removal once that's
+    resolved.
+    """
+
+    settings = get_settings()
+    return {
+        "status": "ok",
+        "cors_allow_origins": settings.cors_allow_origins,
+        "app_env": settings.app_env,
+    }
 
 
 @router.get("/ready")
