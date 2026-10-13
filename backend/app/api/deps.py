@@ -27,7 +27,7 @@ before this refactor — this file adds a seam, not new behavior.
 
 from __future__ import annotations
 
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 
 from app.core.config import Settings, get_settings
 from app.generation.client import ClaudeClient, get_claude_client
@@ -47,4 +47,20 @@ def get_embedding_provider_dependency(
 def get_claude_client_dependency(
     settings: Settings = Depends(get_settings_dependency),
 ) -> ClaudeClient:
-    return get_claude_client(settings)
+    try:
+        return get_claude_client(settings)
+    except RuntimeError as exc:
+        # get_claude_client() raises a bare RuntimeError when no API key is
+        # configured (see app/generation/client.py) - the right exception
+        # type for its non-HTTP callers (scripts, tests), but wrong here:
+        # an uncaught exception raised while resolving a FastAPI dependency
+        # propagates past CORSMiddleware to Starlette's ServerErrorMiddleware,
+        # which sits *outside* user-added middleware (including CORS) and
+        # produces a bare 500 with no Access-Control-Allow-Origin header. A
+        # cross-origin browser then can't read that response at all and
+        # reports a generic network failure ("Failed to fetch") instead of
+        # the actual "no API key configured" error. Converting it to an
+        # HTTPException here routes the error response back through
+        # Starlette's ExceptionMiddleware, which *is* inside CORSMiddleware,
+        # so the browser gets a normal, readable, CORS-correct 503 instead.
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
